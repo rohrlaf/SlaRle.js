@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SlaRle Demo</title>
+    
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    
+    <script src="https://raw.githubusercontent.com/jseidelin/exif-js/master/exif.js"></script>
+    <script src="https://raw.githubusercontent.com/stomita/ios-imagefile-megapixel/master/src/megapix-image.js"></script>
+    
+    <style>
+      canvas { width: 100%; border: 1px solid #DDD; background: #FAFAFA; cursor: pointer; }
+      input[type=file] { display: none; }
+    </style>
+    
+    <script>
+      $(document).ready(function() {
+        var fileInput = document.getElementById('upload');
+        
+        $('#trigger').click(function() {
+          $('#upload').trigger("click");
+        });
+        $('canvas').click(function() {
+          $('#upload').trigger("click");
+        });
+        
+        // image chosen or taken
+        $('#upload').change(function() {
+          var file = fileInput.files[0];
+          var canvas = document.getElementById('image');
+          
+          // MegaPixImage constructor accepts File/Blob object.
+          var mpImg = new MegaPixImage(file);
+          
+          // get EXIF data for orientation
+          EXIF.getData(file, function() {
+            var orientation = EXIF.getTag(file, "Orientation") || 0;
+            var max = $('#resolution').val();
+            // render image to canvas with maximum resolution and correct orientation
+            mpImg.render(canvas, { maxWidth: max, maxHeight: max, orientation: orientation });
+            
+            // trigger algorithm
+          });
+        });
+        
+      });
+    </script>
+    
+  </head>
+  
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+        
+          <div class="row">
+            <div class="col-xs-12">
+              <h2>SlaRle.js Demo</h2>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-xs-12">
+              <h3>Result: <span id="result">-</span></h3>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-xs-12">
+              <h4>Time: <span id="time">0</span> s</h4>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-xs-12">
+              <button id="trigger" type="button" class="btn btn-primary btn-lg btn-block">Load Image</button>
+              <input id="upload" type="file" name="image" accept="image/*" capture>
+            </div>
+          </div>
+          
+          <hr/>
+          
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="input-group">
+                <span class="input-group-addon">Max. <wbr/>Resolution</span>
+                <input id="resolution" type="text" class="form-control" value="640">
+                <span class="input-group-addon">px</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-xs-12">
+              <canvas id="image"></canvas>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+  </body>
+</html>
