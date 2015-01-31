@@ -43,13 +43,16 @@
             // render image to canvas with maximum resolution and correct orientation
             mpImg.render(canvas, { maxWidth: max, maxHeight: max, orientation: orientation });
             
-            // clear memory
-            mpImg = null;
-            file = null;
+            // clear input file
             fileInput.value = null;
             
             // trigger algorithm
+            
           });
+          
+          // clear other resources
+          mpImg = null;
+          file = null;
         });
         
       });
