@@ -10,11 +10,17 @@ Localization is based on an algorithm from Stern [1] with enhanced parameterizat
 Decoding follows the description from O'Sullivan et al. [2] with the additional feature of scanline movement if a scan wasn't successful.
 
 SlaRle is far from perfect, but tries to find a compromise between performance and accuracy in scanning EAN-13 barcodes.
-During the implementation, the algorithm was tested against the 1055 images from Muenster BarcodeDB [3] with the following results:
-Markdown | Less | Pretty
---- | --- | ---
-*Still* | `renders` | **nicely**
-1 | 2 | 3
+Therefore, only horizontal barcodes will be detected due to the scanline algorithm that starts from the top and ends at the bottom.
+During the implementation, the algorithm was tested against the 1055 images from Muenster BarcodeDB [3].
+Due to the horizontal barcode limitation, some images needed to be rotated from [3]: 167 images by 90° and 32 by 180°.
+After this modification, SlaRle reached the following results:
+
+- 70,9 % accuracy at 480px maximum image size
+- 81,3 % accuracy at 640px max
+- 84,4 % accuracy at 800px max
+
+
+### References
 
 - [1] Stern: "Mobile Produkterkennung für ein Behinderten-Assistenzsystem: Automatische Lokalisierung und Dekodierung von 1-D Barcodes", 2011
 - [2] O'Sullivan, Stewart, Goerzen: "Real World Haskell", 2008
