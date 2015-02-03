@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SlaRle Demo</title>
     
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +19,11 @@
     
     <script>
       $(document).ready(function() {
+        var startTime;
+        var endTime;
+        var tempCanvas = document.getElementById('image');
         var fileInput = document.getElementById('upload');
+        var SlaRleWorker = new Worker('./src/SlaRle.js');
         
         $('#trigger').click(function() {
           $('#upload').trigger("click");
@@ -42,14 +46,43 @@
             var max = $('#resolution').val();
             // render image to canvas with maximum resolution and correct orientation
             mpImg.render(canvas, { maxWidth: max, maxHeight: max, orientation: orientation });
-            
-            // trigger algorithm
-            
           });
-          
-          // clear input file
-          fileInput.value = null;
         });
+        
+        // scan initiated
+        $('#scan').click(function() {
+          $('#time').html("0");
+          $('#result').html("-");
+          // start time measurement
+          startTime = new Date().getTime();
+          
+          var tempCanvasCtx = tempCanvas.getContext("2d");
+          var data = tempCanvasCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height).data;
+
+          // prepare message
+          var message = {
+            img: data,
+            width: tempCanvas.width,
+            height: tempCanvas.height
+          };
+          
+          SlaRleWorker.postMessage(message);
+          message = null;
+        });
+        
+        // receive worker messages
+        function receiveMessage(e) {
+          endTime = new Date().getTime();
+          
+          // decoding result
+          if (e.data.decoding && e.data.result) {
+            endTime = new Date().getTime();
+            $('#time').html((endTime - startTime) / 1000);
+            $('#result').html(e.data.EAN.toString());
+          }
+        }
+        
+        SlaRleWorker.onmessage = receiveMessage;
         
       });
     </script>
@@ -59,11 +92,11 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
         
           <div class="row">
             <div class="col-xs-12">
-              <h2>SlaRle.js Demo</h2>
+              <h2>SlaRle.js Demo<small> &raquo; <a href="https://github.com/BobbyJay/SlaRle.js">Project Page</a></small></h2>
             </div>
           </div>
           
@@ -80,9 +113,12 @@
           </div>
           
           <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-6">
               <button id="trigger" type="button" class="btn btn-primary btn-lg btn-block">Load Image</button>
               <input id="upload" type="file" name="image" accept="image/*" capture>
+            </div>
+            <div class="col-xs-6">
+              <button id="scan" type="button" class="btn btn-success btn-lg btn-block">Scan</button>
             </div>
           </div>
           
