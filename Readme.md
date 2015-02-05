@@ -20,6 +20,14 @@ After this modification, SlaRle reached the following results:
 - 84,4 % accuracy at 800px max
 
 
+### Demo
+
+Please check out the demo at: http://bobbyjay.github.io/SlaRle.js/
+For taking a photo or selecting an existing photo (depends on the mobile browser) click "Load Image". This will load your image into the canvas at the bottom scaled with the maximum resolution set in the input field above. After the image is loaded the "Scan" button will trigger SlaRle.
+
+**Info:** Currently, there are some problems, when the barcode is too large. There is a maximum width between to gradients/lines that will be exceeded. ALso, the feedback isn't perfect, if the algorithm is successful it will output the EAN and if not the result will be empty. I will work on this for the demo and also try to show the result of the localisation in the canvas.
+
+
 ### References
 
 - [1] Stern: "Mobile Produkterkennung für ein Behinderten-Assistenzsystem: Automatische Lokalisierung und Dekodierung von 1-D Barcodes", 2011
