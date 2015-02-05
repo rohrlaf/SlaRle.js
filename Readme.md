@@ -27,7 +27,7 @@ For taking a photo or selecting an existing photo (depends on the mobile browser
 
 **Info:** Currently, there are some problems, when the barcode is too large. There is a maximum width between to gradients/lines that will be exceeded. ALso, the feedback isn't perfect, if the algorithm is successful it will output the EAN and if not the result will be empty. I will work on this for the demo and also try to show the result of the localisation in the canvas.
 
-![Demo Screenshot](bobbyjay.github.com/SlaRle.js/img/DemoScreen.jpg)
+![Demo Screenshot](img/DemoScreen.jpg)
 
 
 ### References
