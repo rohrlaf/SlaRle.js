@@ -30,6 +30,17 @@ For taking a photo or selecting an existing photo (depends on the mobile browser
 ![Demo Screenshot](img/DemoScreen.jpg)
 
 
+### Other JS barcode reader
+
+Here is a list of other interesting barcode reading algorithms implemented in JavaScript:
+
+- quaggaJS https://github.com/serratus/quaggaJS
+- JOB https://github.com/EddieLa/JOB
+- barcode.js https://github.com/liip/barcode.js
+- Balkenkode https://bitbucket.org/jrosskopf/balkenkode
+- get_barcode_from_image.js https://gist.github.com/tobytailor/421369
+
+
 ### References
 
 - [1] Stern: "Mobile Produkterkennung für ein Behinderten-Assistenzsystem: Automatische Lokalisierung und Dekodierung von 1-D Barcodes", 2011
