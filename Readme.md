@@ -25,20 +25,31 @@ After this modification, SlaRle reached the following results:
 Please check out the demo at: http://bobbyjay.github.io/SlaRle.js/
 For taking a photo or selecting an existing photo (depends on the mobile browser) click "Load Image". This will load your image into the canvas at the bottom scaled with the maximum resolution set in the input field above. After the image is loaded the "Scan" button will trigger SlaRle.
 
-**Info:** Currently, there are some problems, when the barcode is too large. There is a maximum width between to gradients/lines that will be exceeded. ALso, the feedback isn't perfect, if the algorithm is successful it will output the EAN and if not the result will be empty. I will work on this for the demo and also try to show the result of the localisation in the canvas.
-
 ![Demo Screenshot](img/DemoScreen.jpg)
+
+
+### Limitations of SlaRle
+
+- **huge barcode size**: If the barcode is too large, the barcode region will be broken up and can't be detected properly. This is caused by a parameter that defines the maximum allowed distance between two barcode lines or gradients within the image. Currently set to 1.7% of the images width (horizontal barcodes).
+- **barcode rotation**: SlaRle parses the input image for horizontal Scanlines from top to bottom. Therefore, the barcodes need to be aligned properly to be detected by SlaRle. It strongly depends on the height and distance between lines of the barcode for successful localization.
+![Demo Screenshot](img/BarcodeRotation12rechts.png)
+
+
+### Future work
+
+- **performance tweaks**: Currently, due to research purposes and better debugging, SlaRle uses a conversion of the image data to an array. In the future, it should also work directly on canvas' Uint8ClampedArray so the conversion can be thrown away. Additionally, there are some ideas of improving the localization algorithm at some points.
+- **clean-up**: As mentioned above the code is a bit messy and not documented well. This will be changed in a future version. The objects sent to and received from SlaRle need to be declared properly.
 
 
 ### Other JS barcode reader
 
 Here is a list of other interesting barcode reading algorithms implemented in JavaScript:
 
-- quaggaJS https://github.com/serratus/quaggaJS
-- JOB https://github.com/EddieLa/JOB
-- barcode.js https://github.com/liip/barcode.js
-- Balkenkode https://bitbucket.org/jrosskopf/balkenkode
-- get_barcode_from_image.js https://gist.github.com/tobytailor/421369
+- **quaggaJS** https://github.com/serratus/quaggaJS
+- **JOB** https://github.com/EddieLa/JOB
+- **barcode.js** https://github.com/liip/barcode.js
+- **Balkenkode** https://bitbucket.org/jrosskopf/balkenkode
+- **get_barcode_from_image.js** https://gist.github.com/tobytailor/421369
 
 
 ### References
