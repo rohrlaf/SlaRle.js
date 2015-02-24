@@ -35,6 +35,11 @@ For taking a photo or selecting an existing photo (depends on the mobile browser
 ![Demo Screenshot](img/BarcodeRotation12rechts.png)
 
 
+### License
+
+MIT License
+
+
 ### Future work
 
 - **performance tweaks**: Currently, due to research purposes and better debugging, SlaRle uses a conversion of the image data to an array. In the future, it should also work directly on canvas' Uint8ClampedArray so the conversion can be thrown away. Additionally, there are some ideas of improving the localization algorithm at some points.
