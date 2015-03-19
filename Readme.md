@@ -1,5 +1,5 @@
 # SlaRle.js
-### A JavaScript-based localization and decoding of EAN-13 barcodes with HTML5
+### A JavaScript-based localization and decoding library for EAN-13 barcodes in HTML5
 
 SlaRle (SLA - Scanline-Algorithm, RLE - Run-Length-Encoding) is a pure JavaScript implementation for locating barcode regions in images and decoding EAN-13 barcodes.
 
